@@ -1,6 +1,9 @@
 #pragma once
 
 #include "GameFramework.h"
+#include "GameObject.h"
+
+#include <list>
 
 class GameManager
 {
@@ -28,9 +31,19 @@ public:
 	 */
 	void Render(Gdiplus::Graphics& canvas, const CRect& clientRect);
 
+	void LeftButtonDown(const Vector2i& point);
+
+	void MovementHappened(const Vector2i& input);
+
 private:
 	GameManager();
 	~GameManager();
+
+	GameObject* objectPtr;
+
+	std::list<GameObject*> levelObjects;
+
+	Vector2i levelOffset;
 };
 
 /**
