@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "GameManager.h"
+#include "Wall.h"
+
+#include <iostream>
+#include <fstream>
 
 GameManager& GameManager::Instance()
 {
@@ -23,7 +27,7 @@ void GameManager::BeginPlay()
 
 	// Load the image file Untitled.png from the Images folder. Give it the unique name of Image1
 	GameFrameworkInstance.LoadImageResource(
-		AppConfigInstance.GetResourcePath("Images/Untitled.png"), 
+		AppConfigInstance.GetResourcePath("Images/wall.png"), 
 		"Art");
 
 	objectPtr = new GameObject();
@@ -35,6 +39,16 @@ void GameManager::BeginPlay()
 
 void GameManager::EndPlay()
 {
+	// Save file type
+	std::ofstream saveFile("level.csv");
+
+	// Entries in file
+	saveFile << "0, 1, 1, 1, 1, 1, 1, 1" << std::endl;
+	saveFile << "0, 1, 0, 0, 0, 0, 0, 1" << std::endl;
+	saveFile << "0, 1, 1, 1, 1, 1, 1, 1" << std::endl;
+
+	saveFile.close();
+
 	delete objectPtr;
 }
 
@@ -52,8 +66,6 @@ void GameManager::Render(Gdiplus::Graphics& canvas, const CRect& clientRect)
 	canvas.TranslateTransform((Gdiplus::REAL) levelOffset.X,
 							  (Gdiplus::REAL) levelOffset.Y);
 
-	objectPtr->Draw(canvas);
-
 	// draw all of the level objects
 	for (GameObject* objToDraw : levelObjects)
 	{
@@ -69,8 +81,9 @@ void GameManager::Render(Gdiplus::Graphics& canvas, const CRect& clientRect)
 void GameManager::LeftButtonDown(const Vector2i & point)
 {
 	Vector2i snappedLocation;
-	snappedLocation.X = 20 * ((point.X - levelOffset.X) / 20);
-	snappedLocation.Y = 20 * ((point.Y - levelOffset.Y) / 20);
+	snappedLocation.X = 32 * ((point.X - levelOffset.X) / 32);
+	snappedLocation.Y = 32 * ((point.Y - levelOffset.Y) / 32);
+	DebugLog("Snapped location is " << snappedLocation.X << "," << snappedLocation.Y);
 
 	// check if we've clicked on any level object
 	GameObject* foundObject = nullptr;
@@ -80,8 +93,8 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 		// NOTE: these values are hacky!
 		// please please please use proper ones
 
-		AABBi bounds(objToTest->location-Vector2i(10, 10),
-			objToTest->location + Vector2i(10, 10));
+		AABBi bounds(objToTest->location-Vector2i(16, 16),
+			objToTest->location + Vector2i(16, 16));
 
 		// did we click in the bounds of the object?
 		if (bounds.Contains(snappedLocation))

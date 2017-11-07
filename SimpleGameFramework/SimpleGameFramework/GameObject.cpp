@@ -22,12 +22,6 @@ void GameObject::Draw(Gdiplus::Graphics & canvas)
 	canvas.TranslateTransform((Gdiplus::REAL)location.X, 
 							  (Gdiplus::REAL)location.Y);
 
-	GameFrameworkInstance.DrawRectangle(
-		canvas, AABBi(Vector2i(-10, -10), Vector2i(10, 10)),
-		true,
-		Gdiplus::Color::Peru
-	);
-
 	ImageWrapper* image = 
 	        GameFrameworkInstance.GetLoadedImage(imageID);
 	GameFrameworkInstance.DrawImage(canvas,
