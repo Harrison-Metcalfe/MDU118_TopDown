@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <istream>
+#include <string>
 
 GameManager& GameManager::Instance()
 {
@@ -35,6 +37,21 @@ void GameManager::BeginPlay()
 
 	// End example code
 	////////////////////////////////////////////////////////////////////////////////
+
+	// Load level on start
+	std::ifstream loadFile("level.csv");
+	std::string value;
+	while (loadFile.good()) {
+		getline(loadFile, value, ',');
+		if (value == "1") {
+			// Creates new gameobject at 0,0 in corner
+			GameObject* newObjectPtr = new GameObject();
+
+			newObjectPtr->location = 0;
+
+			levelObjects.push_back(newObjectPtr);
+		}
+	}
 }
 
 void GameManager::EndPlay()
@@ -43,7 +60,7 @@ void GameManager::EndPlay()
 	std::ofstream saveFile("level.csv");
 
 	// Entries in file
-	saveFile << "0, 1, 1, 1, 1, 1, 1, 1" << std::endl;
+	saveFile << "1, 1, 1, 1, 1, 1, 1, 1" << std::endl;
 	saveFile << "0, 1, 0, 0, 0, 0, 0, 1" << std::endl;
 	saveFile << "0, 1, 1, 1, 1, 1, 1, 1" << std::endl;
 
