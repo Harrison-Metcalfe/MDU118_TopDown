@@ -40,14 +40,48 @@ void GameManager::BeginPlay()
 
 	// Load level on start
 	std::ifstream loadFile("level.csv");
-	std::string value;
-	while (loadFile.good()) {
-		getline(loadFile, value, ',');
-		if (value == "1") {
-			// Creates new gameobject at 0,0 in corner
+	std::string line;
+	std::vector<std::vector<std::string>> data;
+
+	if (loadFile.good()) {
+		while (std::getline(loadFile, line)) {
+			std::stringstream lineStream(line);
+			std::string cell;
+			std::vector<std::string> row;
+
+			while (std::getline(lineStream, cell, ',')) {
+				row.push_back(cell);
+			}
+
+			data.push_back(row);
+		}
+	}
+	/*
+	DebugLog(data[1][4]);
+	for (int row = 0; row < data.size(); row++) {
+		for (int cell = 0; cell < data[row].size(); cell++) {
+			if (data[row][cell] == "0") {
+				continue;
+			}
+				GameObject* newObjectPtr = new GameObject();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+		}
+	}
+	*/
+
+	std::vector<std::vector<std::string>>::size_type row;
+	std::vector<std::string>::size_type cell;
+	for (row = 0; row != data.size(); row++) {
+		for (cell = 0; cell != data[row].size(); cell++) {
+			if (data[row][cell] == "0") {
+				continue;
+			}
 			GameObject* newObjectPtr = new GameObject();
 
-			newObjectPtr->location = 0;
+			newObjectPtr->location = Vector2i(cell * 32, row * 32);
 
 			levelObjects.push_back(newObjectPtr);
 		}
@@ -60,9 +94,9 @@ void GameManager::EndPlay()
 	std::ofstream saveFile("level.csv");
 
 	// Entries in file
-	saveFile << "1, 1, 1, 1, 1, 1, 1, 1" << std::endl;
-	saveFile << "0, 1, 0, 0, 0, 0, 0, 1" << std::endl;
-	saveFile << "0, 1, 1, 1, 1, 1, 1, 1" << std::endl;
+	saveFile << "1,1,1,1,1,1,1,1" << std::endl;
+	saveFile << "0,1,0,0,0,0,0,1" << std::endl;
+	saveFile << "0,1,1,1,1,1,1,1" << std::endl;
 
 	saveFile.close();
 
