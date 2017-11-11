@@ -35,6 +35,8 @@ public:
 
 	void MovementHappened(const Vector2i& input);
 
+	std::vector<std::vector<int>> data;
+
 private:
 	GameManager();
 	~GameManager();
