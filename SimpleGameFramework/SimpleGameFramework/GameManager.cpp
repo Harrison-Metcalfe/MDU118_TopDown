@@ -82,7 +82,7 @@ void GameManager::EndPlay()
 
 	// Entries in file
 	for (size_t row = 0; row != data.size(); row++) {
-		//Now that we have data...
+
 		std::ostringstream stream;
 
 		//Copy all the elements from the beginning of the array, to the end of the array
@@ -94,7 +94,7 @@ void GameManager::EndPlay()
 
 		rowStr.erase(rowStr.length() - 1); //Clean up the last trailing ","
 
-		saveFile << rowStr << std::endl; //Write it to the file...
+		saveFile << rowStr << std::endl; //Write it to the file
 	}
 
 	saveFile.close();
@@ -180,17 +180,17 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 
 	levelObjects.push_back(newObjectPtr);
 
-	//Code for adding to the 2d array
-	//Now figure out the last index of the cell on the appropriate row
+	//Code for adding to the 2D array
+	//Figure out the last index of the cell on the appropriate row
 	if (indexCoords.Y < (int)data.size()) {
-		//The row already exists in the array...
+		//The row already exists in the array
 		std::vector<int> cells = data[indexCoords.Y];
-		int lastInd = cells.size() - 1; //<-- Last index
+		int lastInd = cells.size() - 1; //Last index
 		DebugLog(lastInd);
 
 		if (indexCoords.X > lastInd) {
 			//Work out the difference between the index of the new object and the last element
-			int diff = std::abs(indexCoords.X - lastInd); //Thank fuck for absolute...
+			int diff = std::abs(indexCoords.X - lastInd); 
 			DebugLog(diff);
 
 			//Pad out the array based on the difference
@@ -202,18 +202,18 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 		data[indexCoords.Y] = cells;
 	}
 	else {
-		//The row doesn't exist in the array... Work out the difference
+		//The row doesn't exist in the array -> Work out the difference
 		DebugLog(data.size() - 1);
 		int rowDiff = std::abs(indexCoords.Y - ((int)data.size() - 1));
 		DebugLog(rowDiff);
 		DebugLog(data.size());
 
-		//Pad out the array again...
+		//Pad out the array again
 		for (int i = 0; i < rowDiff; i++) data.push_back(std::vector<int>{ 0 });
 		std::vector<int> cells = data[data.size() - 1];
 		DebugLog(data.size());
 
-		int cellDiff = std::abs(indexCoords.X - ((int)cells.size() - 1)); //Always seem to be one cell off... So might as well add one
+		int cellDiff = std::abs(indexCoords.X - ((int)cells.size() - 1)); //Seems to be always one cell off, so adding one just in case
 		for (int i = 0; i < cellDiff; i++) cells.push_back(0);
 		DebugLog(cellDiff);
 
