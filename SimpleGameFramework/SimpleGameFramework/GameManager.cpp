@@ -27,20 +27,6 @@ GameManager::~GameManager()
 
 void GameManager::BeginPlay()
 {
-	////////////////////////////////////////////////////////////////////////////////
-	// Begin example code
-
-	// Load the image file Untitled.png from the Images folder. Give it the unique name of Image1
-	GameFrameworkInstance.LoadImageResource(
-		AppConfigInstance.GetResourcePath("Images/wall.png"), 
-		"Art");
-
-	objectPtr = new GameObject();
-	objectPtr->location = Vector2i(100, 100);
-
-	// End example code
-	////////////////////////////////////////////////////////////////////////////////
-
 	// Load level on start
 	std::ifstream loadFile("level.csv");
 	std::string line;
@@ -174,11 +160,14 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 	//Use the snapped location and work out the index coordinates for the csv
 	Vector2i indexCoords = Vector2i(snappedLocation.X / 32, snappedLocation.Y / 32);
 
-	GameObject* newObjectPtr = new GameObject();
+	if (selectedObject == 1) {
+		Wall* newObjectPtr = new Wall();
 
-	newObjectPtr->location = snappedLocation;
+		newObjectPtr->location = snappedLocation;
 
-	levelObjects.push_back(newObjectPtr);
+		levelObjects.push_back(newObjectPtr);
+	}
+
 
 	//Code for adding to the 2D array
 	//Figure out the last index of the cell on the appropriate row

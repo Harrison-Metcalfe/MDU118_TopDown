@@ -37,6 +37,8 @@ public:
 
 	std::vector<std::vector<int>> data;
 
+	int selectedObject = 1;
+
 private:
 	GameManager();
 	~GameManager();

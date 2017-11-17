@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-class Wall
+class Wall : public GameObject
 {
 public:
 	Wall();
@@ -10,7 +10,9 @@ public:
 
 public:
 	Vector2i playerPosition;
-	std::string currSprite;
 	Vector2i selfPosition;
+
+protected:
+	std::string imageID;
 };
 
