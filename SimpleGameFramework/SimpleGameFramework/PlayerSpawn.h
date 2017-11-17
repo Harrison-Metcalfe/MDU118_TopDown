@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-class PlayerSpawn
+#include "GameObject.h"
+class PlayerSpawn : public GameObject
 {
 public:
 	PlayerSpawn();
@@ -9,6 +10,5 @@ public:
 	void SpawnPlayer();
 
 public: 
-	std::string image;
 };
 

@@ -1,5 +1,6 @@
 #pragma once
-class Enemy
+#include "GameObject.h"
+class Enemy : public GameObject
 {
 public:
 	Enemy();
@@ -16,6 +17,5 @@ public:
 	
 	float currHealth;
 	float maxHealth;
-	std::string currSprite;
 };
 

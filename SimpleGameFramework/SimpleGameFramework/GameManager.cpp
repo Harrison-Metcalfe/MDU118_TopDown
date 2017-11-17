@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "GameManager.h"
 #include "Wall.h"
+#include "Door.h"
+#include "Enemy.h"
+#include "PlayerSpawn.h"
+#include "Key.h"
+#include "LevelEnd.h"
 
 #include <iostream>
 #include <fstream>
@@ -52,11 +57,48 @@ void GameManager::BeginPlay()
 			if (data[row][cell] == 0) {
 				continue;
 			}
-			GameObject* newObjectPtr = new GameObject();
+			if (data[row][cell] == 1) {
+				Wall* newObjectPtr = new Wall();
 
-			newObjectPtr->location = Vector2i(cell * 32, row * 32);
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
 
-			levelObjects.push_back(newObjectPtr);
+				levelObjects.push_back(newObjectPtr);
+			}
+			if (data[row][cell] == 2) {
+				Enemy* newObjectPtr = new Enemy();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+			}
+			if (data[row][cell] == 3) {
+				PlayerSpawn* newObjectPtr = new PlayerSpawn();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+			}
+			if (data[row][cell] == 4) {
+				Door* newObjectPtr = new Door();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+			}
+			if (data[row][cell] == 5) {
+				Key* newObjectPtr = new Key();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+			}
+			if (data[row][cell] == 6) {
+				LevelEnd* newObjectPtr = new LevelEnd();
+
+				newObjectPtr->location = Vector2i(cell * 32, row * 32);
+
+				levelObjects.push_back(newObjectPtr);
+			}
 		}
 	}
 }
@@ -167,6 +209,41 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 
 		levelObjects.push_back(newObjectPtr);
 	}
+	else if (selectedObject == 2) {
+		Enemy* newObjectPtr = new Enemy();
+
+		newObjectPtr->location = snappedLocation;
+
+		levelObjects.push_back(newObjectPtr);
+	} 
+	else if (selectedObject == 3) {
+		PlayerSpawn* newObjectPtr = new PlayerSpawn();
+
+		newObjectPtr->location = snappedLocation;
+
+		levelObjects.push_back(newObjectPtr);
+	}
+	else if (selectedObject == 4) {
+		Door* newObjectPtr = new Door();
+
+		newObjectPtr->location = snappedLocation;
+
+		levelObjects.push_back(newObjectPtr);
+	}
+	else if (selectedObject == 5) {
+		Key* newObjectPtr = new Key();
+
+		newObjectPtr->location = snappedLocation;
+
+		levelObjects.push_back(newObjectPtr);
+	}
+	else if (selectedObject == 6) {
+		LevelEnd* newObjectPtr = new LevelEnd();
+
+		newObjectPtr->location = snappedLocation;
+
+		levelObjects.push_back(newObjectPtr);
+	}
 
 
 	//Code for adding to the 2D array
@@ -187,7 +264,7 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 			DebugLog(cells.size());
 		}
 
-		cells[indexCoords.X] = 1; //1 = Wall
+		cells[indexCoords.X] = selectedObject; //selectedObject fills entry 
 		data[indexCoords.Y] = cells;
 	}
 	else {

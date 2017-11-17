@@ -4,6 +4,11 @@
 
 LevelEnd::LevelEnd()
 {
+	GameFrameworkInstance.LoadImageResource(
+		AppConfigInstance.GetResourcePath("Images/end.png"),
+		"End");
+
+	imageID = "End";
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-class Door
+#include "GameObject.h"
+class Door : public GameObject
 {
 public:
 	Door();
@@ -11,7 +12,6 @@ public:
 
 public:
 	float damage;
-	std::string currSprite;
 	bool unlocked = false;
 };
 

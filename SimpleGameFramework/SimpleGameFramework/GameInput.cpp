@@ -94,16 +94,22 @@ void GameInput::OnKeyDown(UINT keyCode, UINT repeatCount)
 		break;
 
 	case VK_F1:
+		GameManagerInstance.selectedObject = 1;
 		break;
 	case VK_F2:
+		GameManagerInstance.selectedObject = 2;
 		break;
 	case VK_F3:
+		GameManagerInstance.selectedObject = 3;
 		break;
 	case VK_F4:
+		GameManagerInstance.selectedObject = 4;
 		break;
 	case VK_F5:
+		GameManagerInstance.selectedObject = 5;
 		break;
 	case VK_F6:
+		GameManagerInstance.selectedObject = 6;
 		break;
 	case VK_F7:
 		break;

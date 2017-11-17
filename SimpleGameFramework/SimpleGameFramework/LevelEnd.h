@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-class LevelEnd
+#include "GameObject.h"
+class LevelEnd : public GameObject
 {
 public:
 	LevelEnd();

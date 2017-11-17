@@ -4,6 +4,11 @@
 
 Door::Door()
 {
+	GameFrameworkInstance.LoadImageResource(
+		AppConfigInstance.GetResourcePath("Images/door.png"),
+		"Door");
+
+	imageID = "Door";
 }
 
 

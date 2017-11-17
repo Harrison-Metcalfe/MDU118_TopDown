@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "GameObject.h"
+
 class Wall : public GameObject
 {
 public:
@@ -11,8 +13,5 @@ public:
 public:
 	Vector2i playerPosition;
 	Vector2i selfPosition;
-
-protected:
-	std::string imageID;
 };
 

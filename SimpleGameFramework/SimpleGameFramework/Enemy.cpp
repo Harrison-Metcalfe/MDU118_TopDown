@@ -4,6 +4,11 @@
 
 Enemy::Enemy()
 {
+	GameFrameworkInstance.LoadImageResource(
+		AppConfigInstance.GetResourcePath("Images/enemy.png"),
+		"Enemy");
+
+	imageID = "Enemy";
 }
 
 
