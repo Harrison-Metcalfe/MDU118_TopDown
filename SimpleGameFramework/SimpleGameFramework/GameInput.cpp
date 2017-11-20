@@ -29,27 +29,24 @@ void GameInput::EndPlay()
 
 void GameInput::Update(double deltaTime)
 {
-	Vector2i input = Vector2i::Zero;
 	
 	// The code below polls individual keys to determine if they are currently down.
 	if (GetKeyState('W') & 0x8000)
 	{
-		input.Y = -1;
+
 	}
 	if (GetKeyState('A') & 0x8000)
 	{
-		input.X = -1;
+
 	}
 	if (GetKeyState('S') & 0x8000)
 	{
-		input.Y = 1;
+
 	}
 	if (GetKeyState('D') & 0x8000)
 	{
-		input.X = 1;
-	}
 
-	GameManagerInstance.MovementHappened(input);
+	}
 }
 
 void GameInput::OnKeyDown(UINT keyCode, UINT repeatCount)

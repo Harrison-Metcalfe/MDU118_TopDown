@@ -24,7 +24,7 @@ void GameObject::Draw(Gdiplus::Graphics & canvas)
 
 	ImageWrapper* image = 
 	        GameFrameworkInstance.GetLoadedImage(imageID);
-	DebugLog(imageID);
+	// DebugLog(imageID);
 	if (image == nullptr) return;
 
 	GameFrameworkInstance.DrawImage(canvas,
