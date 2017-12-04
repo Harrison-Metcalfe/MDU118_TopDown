@@ -4,6 +4,13 @@
 
 Player::Player()
 {
+	GameFrameworkInstance.LoadImageResource(
+		AppConfigInstance.GetResourcePath("Images/spawn.png"),
+		"Spawn");
+
+	imageID = "Spawn";
+
+	
 }
 
 
@@ -13,6 +20,7 @@ Player::~Player()
 
 void Player::Move(float moveSpeed)
 {
+
 }
 
 void Player::Move_Blink()

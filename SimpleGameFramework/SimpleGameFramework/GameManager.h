@@ -39,6 +39,10 @@ public:
 
 	int selectedObject = 1;
 
+	GameObject* playerInLevel = nullptr;
+
+	bool isPlayMode;
+
 private:
 	GameManager();
 	~GameManager();

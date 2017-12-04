@@ -24,6 +24,7 @@ GameManager& GameManager::Instance()
 
 GameManager::GameManager()
 {
+
 }
 
 GameManager::~GameManager()
@@ -54,9 +55,11 @@ void GameManager::BeginPlay()
 	std::vector<std::string>::size_type cell; 
 	for (row = 0; row != data.size(); row++) {
 		for (cell = 0; cell != data[row].size(); cell++) {
+			// Nothing
 			if (data[row][cell] == 0) {
 				continue;
 			}
+			// Wall
 			if (data[row][cell] == 1) {
 				Wall* newObjectPtr = new Wall();
 
@@ -64,6 +67,7 @@ void GameManager::BeginPlay()
 
 				levelObjects.push_back(newObjectPtr);
 			}
+			// Enemy
 			if (data[row][cell] == 2) {
 				Enemy* newObjectPtr = new Enemy();
 
@@ -71,13 +75,17 @@ void GameManager::BeginPlay()
 
 				levelObjects.push_back(newObjectPtr);
 			}
+			// Player
 			if (data[row][cell] == 3) {
 				Player* newObjectPtr = new Player();
 
 				newObjectPtr->location = Vector2i(cell * 32, row * 32);
 
+				Player* playerinLevel = newObjectPtr;
+
 				levelObjects.push_back(newObjectPtr);
 			}
+			// Door
 			if (data[row][cell] == 4) {
 				Door* newObjectPtr = new Door();
 
@@ -85,6 +93,7 @@ void GameManager::BeginPlay()
 
 				levelObjects.push_back(newObjectPtr);
 			}
+			// Key
 			if (data[row][cell] == 5) {
 				Key* newObjectPtr = new Key();
 
@@ -92,6 +101,7 @@ void GameManager::BeginPlay()
 
 				levelObjects.push_back(newObjectPtr);
 			}
+			// Level End
 			if (data[row][cell] == 6) {
 				LevelEnd* newObjectPtr = new LevelEnd();
 
@@ -227,6 +237,8 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 
 		newObjectPtr->location = snappedLocation;
 
+		Player* playerinLevel = newObjectPtr;
+
 		levelObjects.push_back(newObjectPtr);
 	}
 	else if (selectedObject == 4) {
@@ -296,3 +308,13 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 	}
 }
 
+void GameManager::MovementHappened(const Vector2i & input)
+{
+	if (isPlayMode) {
+		playerInLevel->location -= input;
+	}
+	else
+	{
+		levelOffset -= input;
+	}
+}

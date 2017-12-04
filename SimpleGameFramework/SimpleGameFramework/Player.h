@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "GameObject.h"
+#include "GameInput.h"
 
 class Player : public GameObject
 {
