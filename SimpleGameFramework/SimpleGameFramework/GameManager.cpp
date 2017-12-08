@@ -311,7 +311,7 @@ void GameManager::LeftButtonDown(const Vector2i & point)
 void GameManager::MovementHappened(const Vector2i & input)
 {
 	if (isPlayMode) {
-		playerInLevel->location -= input;
+		
 	}
 	else
 	{
